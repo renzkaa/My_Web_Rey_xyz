@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome untuk ikon sosial media dan hamburger menu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>REYHAN PROFIL</title>
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">RENZKAA</a>
+
+        <!-- Tombol hamburger yang akan muncul di layar HP -->
+        <div class="menu-icon" id="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Navigasi Utama -->
+        <nav id="navbar">
+            <a href="1.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="project.html">Project</a>
+            <a href="achievement.html">Achievement</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="home">
+        <div class="home-img">
+            <img src="images.jpg" alt="Profile Picture">
+        </div>
+
+        <div class="home-content">
+            <h1>HI, it's <span>RENZKAA</span></h1>
+
+            <h3 class="typing-text">
+                I'm a <span></span>
+            </h3>
+
+            <p>Lucha por el honor, lucha por tu vida.<br>
+                Oren a Dios para que nuestro lado esté en lo cierto.<br>
+                Aunque ganamos, todavía puedo perder<br>
+                Hasta que llegue a casa contigo </p>
+                
+            <div class="social-icons">
+                <a href="https://www.instagram.com/reyhan_adhiyasa?igsh=emYyNGhsbXEzNWJj"><i class='fa-brands fa-instagram'></i></a>
+                <a href="https://github.com/dashboard"><i class='fa-brands fa-github'></i></a>
+                <a href="https://www.tiktok.com/@rehanadiyasa?_r=1&_t=ZS-96azVAFNtrc"><i class='fa-brands fa-tiktok'></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript untuk memicu toggle class aktif navbar di HP -->
+    <script>
+        const menuBar = document.getElementById('menu-bar');
+        const navbar = document.getElementById('navbar');
+
+        menuBar.onclick = () => {
+            navbar.classList.toggle('active');
+            // Mengubah bentuk ikon menjadi huruf 'X' (close) saat menu terbuka
+            menuBar.querySelector('i').classList.toggle('fa-times');
+        }
+    </script>
+</body>
+</html>
