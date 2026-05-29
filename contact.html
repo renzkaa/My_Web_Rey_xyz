@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Contact Me - RENZKAA</title>
+    <!-- Menghubungkan ke file CSS eksternal -->
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+
+    <header>
+        <a href="1.html" class="logo">RENZKAA</a>
+        <div class="menu-icon" id="menu-bar"><i class="fas fa-bars"></i></div>
+        <nav id="navbar">
+            <a href="1.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="project.html">Project</a>
+            <a href="achievement.html">Achievement</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </header>
+
+    <section class="contact-section">
+        <h1 class="title">Contact Me</h1>
+        
+        <form action="#">
+            <div class="input-box">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Phone Number">
+                <input type="text" placeholder="Email Subject">
+            </div>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+    </section>
+
+    <script>
+        const menuBar = document.getElementById('menu-bar');
+        const navbar = document.getElementById('navbar');
+        menuBar.onclick = () => {
+            navbar.classList.toggle('active');
+            menuBar.querySelector('i').classList.toggle('fa-times');
+        }
+    </script>
+</body>
+</html>

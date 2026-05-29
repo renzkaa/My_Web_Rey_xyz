@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0; padding: 0; box-sizing: border-box;
+    text-decoration: none; border: none; outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+html{ font-size: 62.5%; scroll-behavior: smooth; }
+body{ min-height: 100vh; width: 100%; background-color: black; color: white; overflow-x: hidden; }
+
+/* HEADER & NAVBAR */
+header{
+    position: fixed; top: 0; left: 0; width: 100%; padding: 2rem 9%;
+    background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+    display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+}
+.logo{ font-size: 3rem; color: #b74b4b; font-weight: 700; cursor: pointer; transition: 0.5s ease; }
+.logo:hover{ transform: scale(1.1); }
+nav{ display: flex; align-items: center; }
+nav a{
+    font-size: 1.8rem; color: white; margin-left: 4rem; font-weight: 500;
+    transition: 0.3s ease; border-bottom: 3px solid transparent; padding-bottom: .4rem;
+}
+nav a:hover, nav a.active{ color: #b74b4b; border-bottom: 3px solid #b74b4b; }
+.menu-icon{ font-size: 3rem; color: white; cursor: pointer; display: none; }
+
+/* ABOUT CONTENT - SUDAH DIPERBAIKI JADI BULAT */
+.about-section { padding: 15rem 9% 5rem; display: flex; align-items: center; justify-content: center; gap: 8rem; }
+.about-img { border-radius: 50%; }
+.about-img img { 
+    width: 350px; 
+    height: 350px; 
+    border-radius: 50%; /* Membuat foto profil bulat sempurna */
+    object-fit: cover; 
+    box-shadow: 0 0 15px #b74b4b; /* Efek glow merah menyala sesuai halaman Home */
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.about-img img:hover { transform: scale(1.03); }
+
+.about-content { max-width: 600px; }
+.about-content h2 { font-size: 5rem; color: #b74b4b; margin-bottom: 2rem; }
+.about-content h3 { font-size: 2.5rem; margin-bottom: 1.5rem; color: #fff; }
+.about-content p { font-size: 1.6rem; color: #aaa; line-height: 1.8; margin-bottom: 3rem; }
+
+.info-box { display: flex; gap: 4rem; }
+.info-card { background: #0b0b0b; border: 1px solid #1f1f1f; padding: 2rem; border-radius: 1.5rem; text-align: center; min-width: 130px; }
+.info-card h4 { font-size: 3rem; color: #b74b4b; margin-bottom: 0.5rem; }
+.info-card span { font-size: 1.3rem; color: #fff; }
+
+/* RESPONSIVE */
+@media (max-width: 995px) {
+    header{ padding: 2rem 5%; }
+    .menu-icon{ display: block; }
+    nav{
+        display: none; position: absolute; top: 100%; right: 0; width: 45%;
+        background-color: #0b0b0b; border-left: 3px solid #b74b4b; border-bottom: 3px solid #b74b4b;
+        border-bottom-left-radius: 2rem; padding: 2rem; flex-direction: column; align-items: flex-start;
+    }
+    nav.active{ display: flex; }
+    nav a{ display: block; font-size: 2rem; margin: 2rem 0; margin-left: 0; width: 100%; }
+    nav a:hover, nav a.active{ padding-left: 1rem; border-bottom: none; border-left: 3px solid #b74b4b; }
+    
+    .about-section { flex-direction: column; text-align: center; padding-top: 12rem; gap: 4rem; }
+    .about-img img { width: 280px; height: 280px; } /* Ukuran mengecil proporsional saat di HP */
+    .info-box { justify-content: center; }
+}

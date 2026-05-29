@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+html{
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body{
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: black;
+    color: white;
+}
+
+p{
+    font-size: 20px;
+    font-family: serif;
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVBAR DESKTOP --- */
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.logo{
+    font-size: 3rem;
+    color: #b74b4b;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+nav{
+    display: flex;
+    align-items: center;
+}
+
+nav a{
+    font-size: 1.8rem;
+    color: white;
+    margin-left: 4rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+    border-bottom: 3px solid transparent;
+    padding-bottom: .4rem;
+}
+
+nav a:hover,
+nav a.active{
+    color: #b74b4b;
+    border-bottom: 3px solid #b74b4b;
+}
+
+/* Tombol hamburger menu default-nya disembunyikan di desktop */
+.menu-icon{
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    display: none;
+}
+
+/* --- SECTION HOME --- */
+section{
+    min-height: 100vh;
+    padding: 15rem 9% 5rem; /* Padding atas ditambah agar tidak tertutup navbar fixed */
+}
+
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+    background-color: black;
+}
+
+.home .home-content h1{
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+span{
+    color: #b74b4b;
+}
+
+.home-content h3{
+    font-size: 5rem;
+    margin: 1rem 0;
+    font-weight: 700;
+}
+
+.home-img{
+    border-radius: 50%;
+}
+
+.home-img img{
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #b74b4b;
+    object-fit: cover;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.home-img img:hover{
+    transform: scale(1.03);
+}
+
+.social-icons a{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    height: 6rem;
+    font-size: 3rem;
+    background-color: transparent;
+    border: 0.2rem solid #b74b4b;
+    border-radius: 50%;
+    margin: 3rem 1.5rem 3rem 0;
+    transition: 0.3s ease;
+    color: #b74b4b;
+}
+
+.social-icons a:hover{
+    color: black;
+    transform: scale(1.3) translateY(-5px);
+    background-color: #b74b4b;
+    box-shadow: 0 0 25px #b74b4b;
+}
+
+.btn{
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background-color: black;
+    border-radius: 4rem;
+    font-size: 1.6rem;
+    color: #b74b4b;
+    letter-spacing: 0.3rem;
+    font-weight: 500;
+    border: 2px solid #b74b4b;
+    transition: .3s ease;
+}
+
+.btn:hover{
+    transform: scale(1.03);
+    background-color: #b74b4b;
+    color: white;
+    box-shadow: 0 0 25px #b74b4b;
+}
+
+/* --- ANIMASI TYPING TEXT --- */
+.typing-text{
+    font-size: 3.4rem;
+    font-weight: 600;
+    min-width: 280px;
+}
+
+.typing-text span{
+    position: relative;
+}
+
+.typing-text span::before{
+    content: "Web Developer";
+    color: #b74b4b;
+    animation: words 12s infinite;
+}
+
+.typing-text span::after{
+    content: "";
+    position: absolute;
+    right: -8px;
+    width: calc(100% + 8px);
+    height: 100%;
+    background-color: black;
+    border-left: 3px solid #b74b4b;
+    animation: cursor 0.8s infinite, typing 12s steps(14) infinite;
+}
+
+@keyframes cursor{
+    to{
+        border-left: 3px solid white;
+    }
+}
+
+@keyframes typing{
+    0%,10%,15%,30%,35%,50%,55%,70%,75%,90%,95%{
+        width: 0;
+    }
+    5%,20%,25%,40%,45%,60%,65%,80%,85%{
+        width: calc(100% + 8px);
+    }
+}
+
+@keyframes words{
+    0%,33%{ content: "Web Developer"; }
+    34%,66%{ content: "Game Developer"; }
+    67%,100%{ content: "Software Engineer"; }
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width:1000px ){
+    .home{
+        gap: 4rem;
+    }
+}
+
+@media (max-width:995px ){
+    header{
+        padding: 2rem 5%;
+    }
+
+    .menu-icon{
+        display: block; /* Menampilkan ikon hamburger di kanan */
+    }
+
+    nav{
+        display: none; /* Menyembunyikan baris menu horizontal */
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 45%;
+        background-color: #0b0b0b; /* Mengubah warna background gelap agar teks putih terbaca */
+        border-left: 3px solid #b74b4b;
+        border-bottom: 3px solid #b74b4b;
+        border-bottom-left-radius: 2rem;
+        padding: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav.active{
+        display: flex; /* Membuka menu secara vertikal ke bawah saat di-klik */
+    }
+
+    nav a{
+        display: block;
+        font-size: 2rem;
+        margin: 2rem 0;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    nav a:hover,
+    nav a.active{
+        padding-left: 1rem;
+        border-bottom: none;
+        border-left: 3px solid #b74b4b; /* Variasi garis aktif pindah ke kiri */
+    }
+
+    .home{
+        flex-direction: column-reverse; /* Mengatur susunan gambar agar berada di posisi yang seimbang saat mobile */
+        margin-top: 5rem;
+        text-align: center;
+    }
+
+    .home-content h1{
+        font-size: 4.5rem;
+    }
+
+    .home-content h3{
+        font-size: 3rem;
+    }
+
+    .home-img img{
+        width: 280px;
+        height: 280px;
+    }
+    
+    .social-icons{
+        display: flex;
+        justify-content: center;
+    }
+}
