@@ -1,50 +1,458 @@
+/* STREAMING_CHUNK:Configuring Base Styles & Fonts... */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
 *{
-    margin: 0; padding: 0; box-sizing: border-box;
-    text-decoration: none; border: none; outline: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
     font-family: 'Poppins', sans-serif;
 }
-html{ font-size: 62.5%; scroll-behavior: smooth; }
-body{ min-height: 100vh; width: 100%; background-color: black; color: white; overflow-x: hidden; }
 
-/* HEADER & NAVBAR */
+html{
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body{
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: black;
+    color: white;
+}
+
+p{
+    font-size: 20px;
+    font-family: serif;
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVBAR DESKTOP --- */
 header{
-    position: fixed; top: 0; left: 0; width: 100%; padding: 2rem 9%;
-    background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
-    display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
 }
-.logo{ font-size: 3rem; color: #b74b4b; font-weight: 700; }
-nav{ display: flex; align-items: center; }
+
+.logo{
+    font-size: 3rem;
+    color: #b74b4b;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+nav{
+    display: flex;
+    align-items: center;
+}
+
 nav a{
-    font-size: 1.8rem; color: white; margin-left: 4rem; font-weight: 500;
-    transition: 0.3s ease; border-bottom: 3px solid transparent; padding-bottom: .4rem;
+    font-size: 1.8rem;
+    color: white;
+    margin-left: 4rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+    border-bottom: 3px solid transparent;
+    padding-bottom: .4rem;
 }
-nav a:hover, nav a.active{ color: #b74b4b; border-bottom: 3px solid #b74b4b; }
-.menu-icon{ font-size: 3rem; color: white; cursor: pointer; display: none; }
 
-/* ACHIEVEMENT CONTENT */
-.achieve-section { padding: 15rem 9% 5rem; text-align: center; }
-.title { font-size: 5rem; color: #b74b4b; margin-bottom: 5rem; text-transform: uppercase; }
+nav a:hover,
+nav a.active{
+    color: #b74b4b;
+    border-bottom: 3px solid #b74b4b;
+}
 
-.achieve-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
-.achieve-card { background: #0b0b0b; border: 1px solid #1f1f1f; padding: 3rem 2rem; border-radius: 2rem; transition: 0.4s ease; text-align: center; }
-.achieve-card:hover { transform: translateY(-10px); border-color: #b74b4b; box-shadow: 0 0 20px rgba(183, 75, 75, 0.2); }
-.achieve-card i { font-size: 5rem; color: #b74b4b; margin-bottom: 2rem; }
-.achieve-card h3 { font-size: 2.2rem; margin-bottom: 1rem; color: #fff; }
-.achieve-card p { font-size: 1.4rem; color: #aaa; line-height: 1.6; }
 
-/* RESPONSIVE */
+/* STREAMING_CHUNK:Styling Achievements Carousel Section... */
+.achieve-section {
+padding: 14rem 9% 6rem;
+text-align: center;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.title {
+font-size: 4.5rem;
+color: #b74b4b;
+margin-bottom: 1rem;
+text-transform: uppercase;
+letter-spacing: 2px;
+text-shadow: 0 0 15px rgba(183, 75, 75, 0.3);
+}
+
+.subtitle {
+font-size: 1.6rem;
+color: #888;
+margin-bottom: 3rem;
+font-weight: 300;
+}
+
+/* CATEGORY FILTER BUTTONS */
+.filter-container {
+display: flex;
+justify-content: center;
+gap: 1.5rem;
+margin-bottom: 3.5rem;
+flex-wrap: wrap;
+}
+
+.filter-btn {
+background: #111;
+color: #aaa;
+border: 1px solid #222;
+padding: 0.8rem 2rem;
+border-radius: 3rem;
+font-size: 1.4rem;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+background: #b74b4b;
+color: white;
+border-color: #b74b4b;
+box-shadow: 0 0 15px rgba(183, 75, 75, 0.4);
+}
+
+/* CAROUSEL VIEWPORT & TRACK */
+.carousel-viewport {
+position: relative;
+width: 100%;
+overflow: hidden;
+padding: 3rem 0 5rem 0;
+margin: 0 auto;
+}
+
+.carousel-track {
+display: flex;
+transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+align-items: center;
+user-select: none;
+}
+
+/* STREAMING_CHUNK:Styling Cards & Selected State... */
+.achieve-card {
+flex: 0 0 calc(33.333% - 2rem);
+margin: 0 1rem;
+background: #0b0b0b;
+border: 1px solid #1f1f1f;
+padding: 3.5rem 2.5rem;
+border-radius: 2rem;
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+text-align: center;
+cursor: pointer;
+opacity: 0.5;
+transform: scale(0.88);
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+min-height: 380px;
+}
+
+.achieve-card.selected {
+opacity: 1;
+transform: scale(1.05);
+border-color: #b74b4b;
+background: linear-gradient(145deg, #120909 0%, #0b0b0b 100%);
+box-shadow: 0 10px 30px rgba(183, 75, 75, 0.3);
+z-index: 10;
+}
+
+.achieve-card .badge {
+position: absolute;
+top: 1.5rem;
+right: 1.5rem;
+background: rgba(183, 75, 75, 0.15);
+color: #b74b4b;
+border: 1px solid rgba(183, 75, 75, 0.3);
+padding: 0.3rem 1.2rem;
+border-radius: 1.5rem;
+font-size: 1.1rem;
+font-weight: 500;
+}
+
+.achieve-card i {
+font-size: 5.5rem;
+color: #b74b4b;
+margin: 2rem 0;
+transition: transform 0.3s ease;
+}
+
+.achieve-card.selected i {
+transform: scale(1.1);
+filter: drop-shadow(0 0 10px rgba(183, 75, 75, 0.6));
+}
+
+.achieve-card h3 {
+font-size: 2.2rem;
+margin-bottom: 1.2rem;
+color: #fff;
+font-weight: 600;
+}
+
+.achieve-card p {
+font-size: 1.4rem;
+color: #aaa;
+line-height: 1.6;
+margin-bottom: 2rem;
+}
+
+.achieve-card .date {
+font-size: 1.2rem;
+color: #666;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.view-detail-btn {
+margin-top: auto;
+background: transparent;
+color: #b74b4b;
+border: 1px solid #b74b4b;
+padding: 0.8rem 1.8rem;
+border-radius: 1rem;
+font-size: 1.3rem;
+font-weight: 500;
+cursor: pointer;
+transition: 0.3s ease;
+display: inline-flex;
+align-items: center;
+gap: 0.8rem;
+}
+
+.view-detail-btn:hover {
+background: #b74b4b;
+color: #fff;
+}
+
+/* NAVIGATION CONTROLS & PAGINATION */
+.controls-container {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 2rem;
+margin-top: 2rem;
+}
+
+.nav-btn {
+width: 5rem;
+height: 5rem;
+border-radius: 50%;
+background: #111;
+border: 1px solid #222;
+color: white;
+font-size: 2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+background: #b74b4b;
+border-color: #b74b4b;
+box-shadow: 0 0 15px rgba(183, 75, 75, 0.4);
+transform: scale(1.1);
+}
+
+.dots-container {
+display: flex;
+gap: 1rem;
+align-items: center;
+}
+
+.dot {
+width: 1.2rem;
+height: 1.2rem;
+border-radius: 50%;
+background: #222;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.dot.active {
+background: #b74b4b;
+width: 3rem;
+border-radius: 1rem;
+box-shadow: 0 0 10px rgba(183, 75, 75, 0.5);
+}
+
+/* STREAMING_CHUNK:Styling Modal Detail Window... */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.85);
+backdrop-filter: blur(8px);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 2000;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+opacity: 1;
+pointer-events: auto;
+}
+
+.modal-content {
+background: #111;
+border: 1px solid #b74b4b;
+padding: 4rem;
+border-radius: 2rem;
+max-width: 600px;
+width: 90%;
+position: relative;
+transform: translateY(20px);
+transition: transform 0.3s ease;
+box-shadow: 0 0 30px rgba(183, 75, 75, 0.3);
+text-align: center;
+}
+
+.modal-overlay.active .modal-content {
+transform: translateY(0);
+}
+
+.close-modal {
+position: absolute;
+top: 2rem;
+right: 2rem;
+font-size: 2.5rem;
+color: #aaa;
+cursor: pointer;
+transition: 0.3s ease;
+}
+
+.close-modal:hover {
+color: #b74b4b;
+}
+
+.modal-icon {
+font-size: 6rem;
+color: #b74b4b;
+margin-bottom: 2rem;
+}
+
+.modal-title {
+font-size: 2.8rem;
+color: #fff;
+margin-bottom: 1rem;
+}
+
+.modal-subtitle {
+font-size: 1.4rem;
+color: #b74b4b;
+margin-bottom: 2rem;
+text-transform: uppercase;
+font-weight: 600;
+}
+
+.modal-desc {
+font-size: 1.5rem;
+color: #ccc;
+line-height: 1.8;
+margin-bottom: 2.5rem;
+}
+
+/* STREAMING_CHUNK:Adding Responsive Rules... */
+@media (max-width: 1024px) {
+.achieve-card {
+flex: 0 0 calc(50% - 2rem);
+}
+}
+
 @media (max-width: 995px) {
-    header{ padding: 2rem 5%; }
-    .menu-icon{ display: block; }
-    nav{
-        display: none; position: absolute; top: 100%; right: 0; width: 45%;
-        background-color: #0b0b0b; border-left: 3px solid #b74b4b; border-bottom: 3px solid #b74b4b;
-        border-bottom-left-radius: 2rem; padding: 2rem; flex-direction: column; align-items: flex-start;
-    }
-    nav.active{ display: flex; }
-    nav a{ display: block; font-size: 2rem; margin: 2rem 0; margin-left: 0; width: 100%; }
-    nav a:hover, nav a.active{ padding-left: 1rem; border-bottom: none; border-left: 3px solid #b74b4b; }
-    .title { font-size: 4rem; }
+header {
+padding: 2rem 5%;
+}
+
+.menu-icon { 
+    display: block; 
+}
+
+nav {
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    right: 0; 
+    width: 45%;
+    background-color: #0b0b0b; 
+    border-left: 3px solid #b74b4b; 
+    border-bottom: 3px solid #b74b4b;
+    border-bottom-left-radius: 2rem; 
+    padding: 2rem; 
+    flex-direction: column; 
+    align-items: flex-start;
+}
+
+nav.active { 
+    display: flex; 
+}
+
+nav a { 
+    display: block; 
+    font-size: 2rem; 
+    margin: 2rem 0; 
+    margin-left: 0; 
+    width: 100%; 
+}
+
+nav a:hover, nav a.active { 
+    padding-left: 1rem; 
+    border-bottom: none; 
+    border-left: 3px solid #b74b4b; 
+}
+
+.title { 
+    font-size: 3.5rem; 
+}
+
+
+}
+
+@media (max-width: 640px) {
+.achieve-card {
+flex: 0 0 calc(100% - 2rem);
+}
+
+nav { 
+    width: 70%; 
+}
+
+.title { 
+    font-size: 3rem; 
+}
+
+.achieve-section { 
+    padding: 12rem 4% 4rem; 
+}
+
+
 }

@@ -3,15 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <title>Achievements - RENZKAA</title>
-    <!-- Menghubungkan ke file CSS eksternal -->
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- External CSS -->
     <link rel="stylesheet" href="achievement.css">
+    
+    <!-- Tambahan CSS khusus untuk Gambar Penghargaan agar rapi -->
+    <style>
+        .achieve-img-wrapper {
+            width: 100%;
+            height: 160px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .achieve-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .achieve-card:hover .achieve-img {
+            transform: scale(1.08);
+        }
+
+        /* Styling gambar di dalam Modal */
+        .modal-img {
+            width: 100%;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: none; /* Akan muncul otomatis jika ada gambar */
+        }
+
+        .modal-header-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .modal-header-info .modal-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Header & Navigation Bar -->
     <header>
-        <a href="1.html" class="logo">RENZKAA</a>
+        <a href="index.html" class="logo">Cyflame</a>
         <div class="menu-icon" id="menu-bar"><i class="fas fa-bars"></i></div>
         <nav id="navbar">
             <a href="index.html">Home</a>
@@ -22,38 +72,271 @@
         </nav>
     </header>
 
+    <!-- Achievements Carousel Section -->
     <section class="achieve-section">
-        <h1 class="title">Achievements</h1>
-        <div class="achieve-container">
-            
-            <div class="achieve-card">
-                <i class="fas fa-trophy"></i>
-                <h3>#</h3>
-                <p>#</p>
-            </div>
+        <h1 class="title">My Achievements</h1>
+        <p class="subtitle">Explore milestones, competition wins, and professional certifications</p>
 
-            <div class="achieve-card">
-                <i class="fas fa-certificate"></i>
-                <h3>#</h3>
-                <p>#</p>
-            </div>
+        <!-- Category Filters -->
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterCategory('all')">All</button>
+            <button class="filter-btn" onclick="filterCategory('Competition')">Competitions</button>
+            <button class="filter-btn" onclick="filterCategory('Certification')">Certifications</button>
+            <button class="filter-btn" onclick="filterCategory('Honor')">Honors & Awards</button>
+        </div>
 
-            <div class="achieve-card">
-                <i class="fas fa-medal"></i>
-                <h3>#</h3>
-                <p>#</p>
+        <!-- Carousel Track Viewport -->
+        <div class="carousel-viewport" id="carouselViewport">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Cards will be dynamically injected here by JS -->
             </div>
+        </div>
 
+        <!-- Carousel Navigation Controls -->
+        <div class="controls-container">
+            <button class="nav-btn" id="prevBtn" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+            <div class="dots-container" id="dotsContainer"></div>
+            <button class="nav-btn" id="nextBtn" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
         </div>
     </section>
 
+    <!-- Detail View Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" id="closeModal"></i>
+            <!-- Gambar Penghargaan di Modal -->
+            <img src="" alt="Foto Penghargaan" class="modal-img" id="modalImg">
+            
+            <div class="modal-header-info">
+                <i class="fas fa-trophy modal-icon" id="modalIcon"></i>
+                <div class="modal-subtitle" id="modalCategory">Category • Date</div>
+            </div>
+            
+            <h2 class="modal-title" id="modalTitle">Achievement Title</h2>
+            <p class="modal-desc" id="modalDesc">Full detailed description of the achievement.</p>
+        </div>
+    </div>
+
     <script>
+        // Data items array (Ganti link 'image' dengan lokasi file foto Anda, misal: "assets/juara1.jpg")
+        const achievementsData = [
+            {
+                id: 1,
+                title: "1st Issic Competition",
+                category: " Internet of things Competition",
+                icon: "fa-trophy",
+                badge: "1st Winner",
+                date: "Nov 2026",
+                image: "Issic_awarding.jpeg",
+                shortDesc: "1st Iot Smart Solution Innovation Challenge.",
+                fullDesc: "1st Iot Smart Solution Innovation In Universitas Negri Malang , with aquabite robotics by di ajak ridho lomba issic",
+            },
+            
+        ];
+
+        let filteredItems = [...achievementsData];
+        let currentIndex = 0;
+
+        // Elements
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
         const menuBar = document.getElementById('menu-bar');
         const navbar = document.getElementById('navbar');
+
+        // Modal Elements
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalDesc = document.getElementById('modalDesc');
+
+        // Render Carousel Cards
+        function renderCarousel() {
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            filteredItems.forEach((item, index) => {
+                // Create Card
+                const card = document.createElement('div');
+                card.className = `achieve-card ${index === currentIndex ? 'selected' : ''}`;
+                card.onclick = () => selectCard(index);
+
+                // Jika ada properti image, tampilkan foto. Jika tidak, tampilkan ikon.
+                const mediaContent = item.image 
+                    ? `<div class="achieve-img-wrapper">
+                           <img src="${item.image}" alt="${item.title}" class="achieve-img" loading="lazy">
+                       </div>`
+                    : `<i class="fas ${item.icon}"></i>`;
+
+                card.innerHTML = `
+                    <span class="badge">${item.badge}</span>
+                    ${mediaContent}
+                    <div>
+                        <h3>${item.title}</h3>
+                        <p>${item.shortDesc}</p>
+                    </div>
+                    <div class="date"><i class="far fa-calendar-alt"></i> ${item.date}</div>
+                    <button class="view-detail-btn" onclick="openModal(event, ${item.id})">
+                        <span>Details</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                `;
+
+                track.appendChild(card);
+
+                // Create Pagination Dot
+                const dot = document.createElement('div');
+                dot.className = `dot ${index === currentIndex ? 'active' : ''}`;
+                dot.onclick = () => selectCard(index);
+                dotsContainer.appendChild(dot);
+            });
+
+            updateTrackPosition();
+        }
+
+        // Calculate card offset to keep selected item center-aligned
+        function updateTrackPosition() {
+            const cards = document.querySelectorAll('.achieve-card');
+            if (cards.length === 0) return;
+
+            const cardWidth = cards[0].offsetWidth + 20; // width + gap margin
+            const viewportWidth = document.getElementById('carouselViewport').offsetWidth;
+            
+            // Calculate center positioning
+            const centerOffset = (viewportWidth / 2) - (cardWidth / 2);
+            const translateX = centerOffset - (currentIndex * cardWidth);
+
+            track.style.transform = `translateX(${translateX}px)`;
+
+            // Update selected visual state
+            cards.forEach((card, i) => {
+                if (i === currentIndex) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+
+            // Update dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                if (i === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function selectCard(index) {
+            currentIndex = index;
+            updateTrackPosition();
+        }
+
+        // Navigation
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : filteredItems.length - 1;
+            updateTrackPosition();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < filteredItems.length - 1) ? currentIndex + 1 : 0;
+            updateTrackPosition();
+        });
+
+        // Filter Functionality
+        function filterCategory(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.textContent.includes(category) || (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (category === 'all') {
+                filteredItems = [...achievementsData];
+            } else {
+                filteredItems = achievementsData.filter(item => item.category === category);
+            }
+
+            currentIndex = 0;
+            renderCarousel();
+        }
+
+        // Modal Handlers
+        function openModal(e, id) {
+            e.stopPropagation(); // Prevent card selection event collision
+            const item = achievementsData.find(a => a.id === id);
+            if (!item) return;
+
+            // Tampilkan gambar di modal jika tersedia
+            if (item.image) {
+                modalImg.src = item.image;
+                modalImg.alt = item.title;
+                modalImg.style.display = 'block';
+            } else {
+                modalImg.style.display = 'none';
+            }
+
+            modalIcon.className = `fas ${item.icon} modal-icon`;
+            modalTitle.textContent = item.title;
+            modalCategory.textContent = `${item.category} • ${item.date}`;
+            modalDesc.textContent = item.fullDesc;
+
+            modalOverlay.classList.add('active');
+        }
+
+        closeModal.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        // Mobile Menu Toggle
         menuBar.onclick = () => {
             navbar.classList.toggle('active');
             menuBar.querySelector('i').classList.toggle('fa-times');
-        }
+        };
+
+        // Swipe Support for Touch Devices
+        let startX = 0;
+        let isSwiping = false;
+
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isSwiping = true;
+        }, { passive: true });
+
+        track.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0 && currentIndex < filteredItems.length - 1) {
+                    selectCard(currentIndex + 1);
+                } else if (diffX < 0 && currentIndex > 0) {
+                    selectCard(currentIndex - 1);
+                }
+            }
+            isSwiping = false;
+        }, { passive: true });
+
+        // Responsive Resize Handler
+        window.addEventListener('resize', updateTrackPosition);
+
+        // Initial Initialization
+        window.onload = () => {
+            renderCarousel();
+        };
     </script>
 </body>
 </html>

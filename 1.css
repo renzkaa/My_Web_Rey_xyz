@@ -187,7 +187,7 @@ span{
 }
 
 .typing-text span::before{
-    content: "Web Developer";
+    content: "informatics student";
     color: #b74b4b;
     animation: words 12s infinite;
 }
@@ -219,9 +219,9 @@ span{
 }
 
 @keyframes words{
-    0%,33%{ content: "Web Developer"; }
-    34%,66%{ content: "Game Developer"; }
-    67%,100%{ content: "Software Engineer"; }
+    0%,33%{ content: "cybersecurity student"; }
+    34%,66%{ content: "web development"; }
+    67%,100%{ content: "Robotic member"; }
 }
 
 /* --- RESPONSIVE MEDIA QUERIES --- */
